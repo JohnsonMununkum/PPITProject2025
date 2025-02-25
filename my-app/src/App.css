@@ -107,3 +107,35 @@
 .resLink:hover {
     color: #c2a869;
 }
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3) !important; 
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+}
+
+/* Links to the right of the navbar */
+ .nav {
+  margin-left: auto; 
+}
+
+/* Links are given properties */
+.navbar .nav-link {
+  color: white !important;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-right: 20px; 
+}
+
+/* Hover */
+.navbar .nav-link:hover {
+  color: #c2a869 !important;
+}

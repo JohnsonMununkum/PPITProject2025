@@ -5,12 +5,16 @@ import Navbar from 'react-bootstrap/Navbar';
 //NavigationBar includes links that direct user to a different page
 const NavBar = () => {
     return (
-        <Navbar bg="dark" data-bs-theme="dark">
+        <Navbar>
             <Container>
             <Navbar.Brand href="/">
             <img src="/Images/logo.jpeg" alt="logo" width="100" height="100" />            </Navbar.Brand>
-            <Nav className="navbar">
-              <Nav.Link href="/">Home</Nav.Link>
+            <Nav className="nav">
+              <Nav.Link href="/">Menu</Nav.Link>
+              <Nav.Link href="/">Order to your Door</Nav.Link>
+              <Nav.Link href="/">About</Nav.Link>
+              <Nav.Link href="/">Sign in</Nav.Link>
+              <Nav.Link href="/">Reservations</Nav.Link>
             </Nav>
             </Container>
         </Navbar>
