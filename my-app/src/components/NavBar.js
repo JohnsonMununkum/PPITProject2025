@@ -7,7 +7,8 @@ const NavBar = () => {
     return (
         <Navbar bg="dark" data-bs-theme="dark">
             <Container>
-            <Navbar.Brand href="/"></Navbar.Brand>
+            <Navbar.Brand href="/">
+            <img src="/Images/logo.jpeg" alt="logo" width="100" height="100" />            </Navbar.Brand>
             <Nav className="navbar">
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>

@@ -47,3 +47,46 @@
   height: 100vh;
   text-align: center;
 }
+
+.resDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.resLink{
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  color:black;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: transparent;
+  padding: 10px 20px;
+}
+
+.resDiv::before,
+.resDiv::after {
+    content: "";
+    position: absolute;
+    width: 125px;
+    height: 2.5px;
+    background-color: #c2a869;
+}
+
+/* Position line above */
+.resDiv::before {
+    top: -15px; 
+}
+
+/* Position line below */
+.resDiv::after {
+    bottom: -15px; 
+}
+
+/* Hover */
+.resLink:hover {
+    color: #c2a869;
+}
