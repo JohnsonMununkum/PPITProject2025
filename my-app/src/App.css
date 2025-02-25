@@ -39,13 +39,30 @@
 
 
 /* ********************************************************************* */
+/* added image as a background to home page */
 .home {
+  position: relative;
+  background-image: url('/public/Images/homeBackground.jpg');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   text-align: center;
+}
+
+/* changing color of h1 text */
+.home h1 {
+  color: white;
+  z-index: 2;
+}
+
+/* changing color of p text */
+.home p {
+  color: white;
+  z-index: 2;
 }
 
 .resDiv{
@@ -60,7 +77,7 @@
   position: relative;
   font-size: 18px;
   font-weight: bold;
-  color:black;
+  color:white;
   text-decoration: none;
   text-transform: uppercase;
   background: transparent;
