@@ -26,6 +26,13 @@ app.get('/', (req, res) =>{
     res.send("running on port 4000");
 });
 
+ //connecting mongoose to server.js
+ const mongoose = require('mongoose');
+ mongoose.connect('mongodb+srv://g00419319:admin@project-2024.owuzo.mongodb.net/DBproject');
+
+ //checking if app is connected to mongodb
+ console.log("MongoDB Status:", mongoose.connection.readyState);
+
 //error handling to catch server errors
 app.use((err, req, res, next) => {
     console.error(err.stack);
