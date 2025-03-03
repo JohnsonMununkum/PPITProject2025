@@ -33,6 +33,39 @@ app.get('/', (req, res) =>{
  //checking if app is connected to mongodb
  console.log("MongoDB Status:", mongoose.connection.readyState);
 
+ //model
+ const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
+ });
+
+ const user = mongoose.model('user',userSchema);
+
+ //checking if email exists for login
+app.post("/AccountLogin", async (req, res) => {
+    const { email } = req.body;
+    const user = await user.findOne({ email });
+
+    if (user) {
+        res.json({ exists: true });
+    } else {
+        res.json({ exists: false });
+    }
+});
+
+//Register a New User
+app.post("/register", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const newUser = new user({ email, password });
+        await newUser.save();
+        res.json({ success: true, message: "User registered" });
+    } catch (err) {
+        res.status(400).json({ success: false, message: "Error registering user" });
+    }
+});
+
 //error handling to catch server errors
 app.use((err, req, res, next) => {
     console.error(err.stack);
