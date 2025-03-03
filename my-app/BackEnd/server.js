@@ -21,3 +21,18 @@ app.use(function(req, res, next) {
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.get('/', (req, res) =>{
+    res.send("running on port 4000");
+});
+
+//error handling to catch server errors
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
+//port listening on port 4000
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
