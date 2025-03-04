@@ -65,7 +65,10 @@ const AccountLogin = () => {
     };
 
     return (
-        <div className="login-container">
+        <div className="page-container">
+         <div className="login-container">
+             <div className="content-wrap">
+
             <h1 className="login-title">Account Login</h1>
 
             <div className="input-group">
@@ -105,7 +108,10 @@ const AccountLogin = () => {
                 </>
             )}
         </div>
-        
+    </div>
+    <Footer/>
+</div>
+
     );
 };
 
