@@ -41,28 +41,42 @@ app.get('/', (req, res) =>{
  const emailModel = mongoose.model("emailModel",emailSchema);
 
  //checking if email exists for login
-  app.post("/AccountLogin", async (req, res) => {
+ //then if email exists ask for password 
+ //if email does not exist send them to the register page
+app.post("/AccountLogin", async (req, res) => {
     
-        const { email } = req.body;
+        const { email, password } = req.body;
         console.log("Checking email:", email);
 
-        //Validate input
         if (!email) {
             return res.status(400).json({ success: false, message: "Email is required" });
         }
 
-        //looking for email
-        //puts all letters to lower case
+        // 🔍 Find user email in database
         const foundEmail = await emailModel.findOne({ email: email.trim().toLowerCase() }).lean();
 
-        if (foundEmail) {
-            console.log("email exists:", foundEmail.email);
-            res.json({ exists: true });
+        if (!foundEmail) {
+            console.log("Email not found");
+            return res.json({ exists: false });
+        }
+
+        console.log("Email exists:", foundEmail.email);
+
+        //ensure password is provided
+        if (!password) {
+            return res.json({ exists: true, message: "Enter password" });
+        }
+
+        //Check if password is correct or not
+        if (foundEmail.password === password) {
+            console.log("✅ Password is correct");
+            return res.json({ success: true });
         } else {
-            console.log("email not found");
-            res.json({ exists: false });
+            console.log("Incorrect password");
+            return res.status(401).json({ success: false, message: "Incorrect password" });
         }
 });
+
 
 //Register a New User
 app.post("/register", async (req, res) => {
