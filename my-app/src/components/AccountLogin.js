@@ -10,15 +10,15 @@ const AccountLogin = () => {
     const [name, setName] = useState("");
     const [errorMessage, setErrorMessage] = useState("");    
     const [emailExists, setEmailExists] = useState(null); 
-    const [error, setError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [emailError, setEmailError] = useState(false);
     const navigate = useNavigate();
 
     const handleEmail = async () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            setError("Invalid email format");
+            setEmailError(true);
             return;
         }
 
@@ -76,6 +76,14 @@ const AccountLogin = () => {
             onChange={(e) => setEmail(e.target.value)}
             style={{ padding: "10px", width: "250px", margin: "10px" }}
         />
+
+         {/* Show error message if email is invalid */}
+         {emailError && (
+                <p style={{ color: "red", fontSize: "14px", margin: "5px 0" }}>
+                    Please enter a valid email address.
+                </p>
+            )}
+
         <br />
         <button onClick={handleEmail} style={{ padding: "10px 20px" }}>
             Login or Register
@@ -97,6 +105,14 @@ const AccountLogin = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     style={{ padding: "10px", width: "250px", margin: "10px" }}
                 />
+
+                {/* error message if password is incorrect */}
+                {passwordError && (
+                        <p style={{ color: "red", fontSize: "14px", margin: "5px 0" }}>
+                            {passwordError}
+                        </p>
+                    )}
+
                 <br />
                 <button onClick={handleLogin} style={{ padding: "10px 20px" }}>
                     Login
