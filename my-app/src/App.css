@@ -140,6 +140,22 @@
   color: #c2a869 !important;
 }
 
+/* added image as a background to login page page */
+.page-container {
+  position: relative;
+  background-image: url('/public/Images/homeBackground.jpg'); /* Remove `/public/` */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  flex-direction: column;
+}
+
+
 
 /* Centering the form on the page */
 .login-container {

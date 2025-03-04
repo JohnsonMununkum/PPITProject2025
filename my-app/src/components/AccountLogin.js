@@ -3,6 +3,8 @@ import React, { useState } from "react";
 //used for redirection
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import "../App.css";
+
 
 const AccountLogin = () => {
     //variables
