@@ -2,6 +2,7 @@ import React, { useState } from "react";
 //importing usenavigate navigation tool 
 //used for redirection
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 const AccountLogin = () => {
     //variables
@@ -104,6 +105,7 @@ const AccountLogin = () => {
                 </>
             )}
         </div>
+        
     );
 };
 
