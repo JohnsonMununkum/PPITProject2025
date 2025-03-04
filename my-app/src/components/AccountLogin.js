@@ -7,7 +7,6 @@ const AccountLogin = () => {
     //variables
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
     const [errorMessage, setErrorMessage] = useState("");    
     const [emailExists, setEmailExists] = useState(null); 
     const [passwordError, setPasswordError] = useState("");
@@ -65,62 +64,46 @@ const AccountLogin = () => {
     };
 
     return (
-        <div style={{ textAlign: "center", marginTop: "130px" }}>
-        <h1>Account Login</h1>
+        <div className="login-container">
+            <h1 className="login-title">Account Login</h1>
 
-        {/* Email Input */}
-        <label>Email:</label>
-        <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ padding: "10px", width: "250px", margin: "10px" }}
-        />
-
-         {/* Show error message if email is invalid */}
-         {emailError && (
-                <p style={{ color: "red", fontSize: "14px", margin: "5px 0" }}>
-                    Please enter a valid email address.
-                </p>
-            )}
-
-        <br />
-        <button onClick={handleEmail} style={{ padding: "10px 20px" }}>
-            Login or Register
-        </button>
-
-        {/* If Email is Not Found, Redirect */}
-        {emailExists === false && (
-            <p style={{ color: "red" }}>Email not found. Redirecting to Register...</p>
-        )}
-
-        {/* If Email Exists, Show Password Field */}
-        {emailExists === true && (
-            <>
-                <br />
-                <label>Pawword:</label>
+            <div className="input-group">
+                <label>Email:</label>
                 <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={{ padding: "10px", width: "250px", margin: "10px" }}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-field"
                 />
+                {emailError && <p className="error-message">Please enter a valid email address.</p>}
+            </div>
 
-                {/* error message if password is incorrect */}
-                {passwordError && (
-                        <p style={{ color: "red", fontSize: "14px", margin: "5px 0" }}>
-                            {passwordError}
-                        </p>
-                    )}
+            <button onClick={handleEmail} className="btn">
+                Login or Register
+            </button>
 
-                <br />
-                <button onClick={handleLogin} style={{ padding: "10px 20px" }}>
-                    Login
-                </button>
-                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            </>
-        )}
-    </div>
+            {emailExists === false && <p className="error-message">Email not found. Redirecting to Register...</p>}
+
+            {emailExists === true && (
+                <>
+                    <div className="input-group">
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input-field"
+                        />
+                        {passwordError && <p className="error-message">{passwordError}</p>}
+                    </div>
+
+                    <button onClick={handleLogin} className="btn">
+                        Login
+                    </button>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                </>
+            )}
+        </div>
     );
 };
 
