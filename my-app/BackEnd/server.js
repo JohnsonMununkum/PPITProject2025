@@ -40,6 +40,19 @@ app.get('/', (req, res) =>{
 
  const emailModel = mongoose.model("emailModel",emailSchema);
 
+ //schema for user registering 
+ const userRegSchema = new mongoose.Schema({
+    fname: String,// first name
+    sname: String, //surname
+    email: { type: String, required: true, unique: true },
+    password: String,
+    phoneNum: String,
+    dob: Date //date of birth
+
+ });
+
+const userReg = mongoose.model('userReg', userRegSchema);
+
  //checking if email exists for login
  //then if email exists ask for password 
  //if email does not exist send them to the register page
@@ -80,15 +93,13 @@ app.post("/AccountLogin", async (req, res) => {
 
 //Register a New User
 app.post("/register", async (req, res) => {
-    const { email, password } = req.body;
 
-    try {
-        const newUser = new user({ email, password });
-        await newUser.save();
-        res.json({ success: true, message: "User registered" });
-    } catch (err) {
-        res.status(400).json({ success: false, message: "Error registering user" });
-    }
+    const { fname, sname, email, password, phoneNum, dob } = req.body;
+
+   const newCustomer = new userReg({fname, sname, email, password, phoneNum, dob});
+   await newCustomer.save();
+
+   res.status(201).json({ message: 'Customer registered successfully' });
 });
 
 //error handling to catch server errors
