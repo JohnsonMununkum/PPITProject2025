@@ -1,8 +1,10 @@
-import {useState}  from "react";
+import React, {useState}  from "react";
 // axios sends the user reg data to my sever.js(backend)
 import axios from "axios";
 // use navigate for navigation
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
+import "../App.css";
 
 
 //useState to hold the data of these variables
@@ -15,6 +17,7 @@ const Register = () => {
     const [phoneNum, setPhoneNum] = useState("");
     const [dob, setDob] = useState("");
     const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
    
@@ -60,7 +63,80 @@ const Register = () => {
     }
     };
 
-
+    return(
+        <div className="page-container">
+            <div className="reg-container">
+                <div className="content-wrap">
+    
+                    <h1 className="reg-title">Customer Registration</h1>
+    
+                    <div className="input-group">
+                        <label>First Name:</label>
+                        <input
+                            type="text"
+                            value={fname}
+                            onChange={(e) => setFname(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Surname:</label>
+                        <input
+                            type="text"
+                            value={sname}
+                            onChange={(e) => setSname(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Enter Password Again:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Phone Number:</label>
+                        <input
+                            type="text"
+                            value={phoneNum}
+                            onChange={(e) => setPhoneNum(e.target.value)}
+                            className="input-field"
+                        />
+    
+                        <label>Date Of Birth:</label>
+                        <input
+                            type="date"
+                            value={dob}
+                            onChange={(e) => setDob(e.target.value)}
+                            className="input-field"
+                        />
+                    </div>
+    
+                    <button onClick={handleRegister} className="btn">
+                        Register
+                    </button>
+                </div>
+            </div>
+            <Footer/>
+        </div>
+    );
+    
 };
 
 export default Register;
