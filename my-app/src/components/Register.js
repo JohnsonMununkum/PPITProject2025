@@ -134,7 +134,7 @@ const Register = () => {
                             className="input-field"
                         />
                     </div>
-    
+                    {error && <p className="error-message">{error}</p>}
                     <button onClick={handleRegister} className="btn">
                         Register
                     </button>
