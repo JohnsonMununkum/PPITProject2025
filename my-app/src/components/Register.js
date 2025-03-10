@@ -14,6 +14,7 @@ const Register = () => {
     const [sname, setSname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
     const [dob, setDob] = useState("");
     const [error, setError] = useState("");
@@ -25,7 +26,7 @@ const Register = () => {
         e.preventDefault();
 
         // have to enter all inputs required
-        if (!fname || !sname || !email || !password || phoneNum) {
+        if (!fname || !sname || !email || !password || !confirmPassword  || !phoneNum || !dob) {
             setError("All fields are required");
             return;
         }
@@ -34,6 +35,12 @@ const Register = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setError("Invalid email format");
+            return;
+        }
+
+        //checking if passwords match
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
             return;
         }
 
@@ -103,11 +110,11 @@ const Register = () => {
                             className="input-field"
                         />
     
-                        <label>Enter Password Again:</label>
+                        <label>Confirm Password:</label>
                         <input
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             className="input-field"
                         />
     
