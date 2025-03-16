@@ -44,7 +44,7 @@ app.get('/', (req, res) =>{
  const userRegSchema = new mongoose.Schema({
     fname: String,// first name
     sname: String, //surname
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },// convert email to lowercase
     password: String,
     phoneNum: String,
     dob: Date //date of birth
@@ -65,12 +65,15 @@ app.post("/AccountLogin", async (req, res) => {
             return res.status(400).json({ success: false, message: "Email is required" });
         }
 
-        // 🔍 Find user email in database
-        const foundEmail = await emailModel.findOne({ email: email.trim().toLowerCase() }).lean();
+        // trim email and make it lowercase
+        const convertEmail = email.trim().toLowerCase();
+
+        // Find user email in database
+        const foundEmail = await userReg.findOne({ email: convertEmail }).lean();
 
         if (!foundEmail) {
             console.log("Email not found");
-            return res.json({ exists: false });
+            return res.json({ exists: false, message: "Email not found , Register"});
         }
 
         console.log("Email exists:", foundEmail.email);
@@ -82,7 +85,7 @@ app.post("/AccountLogin", async (req, res) => {
 
         //Check if password is correct or not
         if (foundEmail.password === password) {
-            console.log("✅ Password is correct");
+            console.log("Password is correct");
             return res.json({ success: true });
         } else {
             console.log("Incorrect password");
@@ -95,6 +98,16 @@ app.post("/AccountLogin", async (req, res) => {
 app.post("/register", async (req, res) => {
 
     const { fname, sname, email, password, phoneNum, dob } = req.body;
+
+        // trim email and make it lowercase
+        const convertEmail = email.trim().toLowerCase();
+
+      // Check if email already exists
+      const existingUser = await userReg.findOne({ email: convertEmail });
+
+      if (existingUser) {
+          return res.status(400).json({ success: false, message: "Email already exists. Please log in." });
+      }
 
    const newCustomer = new userReg({fname, sname, email, password, phoneNum, dob});
    await newCustomer.save();
