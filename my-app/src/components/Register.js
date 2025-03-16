@@ -44,6 +44,17 @@ const Register = () => {
             return;
         }
 
+        //checking if user is 18 or not
+        //this is done by setting the minnimum age at 18 then taking it away from the dob
+        const birthDate = new Date(dob);
+        const today = new Date();
+        const minAgeDate = new Date();
+        minAgeDate.setFullYear(today.getFullYear() - 18); 
+
+    if (birthDate > minAgeDate) {
+        setError("You must be at least 18 years old to register.");
+        return;
+    }
          // send registration data to backend using Axios
         try {
             const res = await axios.post("http://localhost:4000/register", {
@@ -54,7 +65,7 @@ const Register = () => {
                 phoneNum
             });
 
-            setMessage(res.data.message); // Display success message
+            setMessage(res.data.message); 
 
         // Save user details to localStorage 
         const userDetails = { fname, sname, email, password, phoneNum };
