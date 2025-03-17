@@ -10,7 +10,7 @@ const NavBar = () => {
             <Navbar.Brand href="/">
             <img src="/Images/logo.jpeg" alt="logo" width="100" height="100" />            </Navbar.Brand>
             <Nav className="nav">
-              <Nav.Link href="/">Menu</Nav.Link>
+              <Nav.Link href="/Menu">Menu</Nav.Link>
               <Nav.Link href="/">Order to your Door</Nav.Link>
               <Nav.Link href="/">About</Nav.Link>
               <Nav.Link href="/AccountLogin">Account Login</Nav.Link>
