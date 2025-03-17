@@ -310,7 +310,34 @@
   background-color: black;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
+  padding: 20px;
+}
+
+/* buttons on the menu page */
+.menu-options {
+  display: flex;
+  gap: 10px; 
+  align-items: flex-start; 
+  margin-top: 200px; 
+  padding-left: 200px;
+}
+
+/* styling for the menu buttons*/
+.menubtn {
+  background-color: #1c1c1c; 
+  color: white;
+  border: none; 
+  padding: 12px 20px; 
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+/* lighter background on when mouse is on the button */
+.menubtn:hover {
+  background-color: #333; 
 }
