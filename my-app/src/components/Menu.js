@@ -89,6 +89,25 @@ const Menu = () => {
 
                             <div className="menu-divider"></div>
 
+                            {/*  Mains */}
+                            <h2 className="menu-title">Dessert</h2>
+                            <div className="menu-divider"></div>
+
+                            <div className="menu-item">
+                                <span className="dish">Chocolate Brownie<span className="price">€6.95</span></span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Apple Crumble<span className="price">€6.95</span></span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">CheeseCake<span className="price">€6.95</span></span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">IceCream<span className="price">€6.95</span></span>
+                            </div>
                         </div>
                      )}
              </div>
