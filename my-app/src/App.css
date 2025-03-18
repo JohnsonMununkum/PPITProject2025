@@ -426,3 +426,26 @@
   z-index: 10;
 }
 
+/* styling for the camera */
+.camera {
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/* styling for the image */
+.item-image {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* styling for the image */
+.item-image img {
+  width: 100%;
+  max-width: 500px;  
+  height: auto;
+  border-radius: 8px;
+}
