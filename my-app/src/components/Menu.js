@@ -211,6 +211,89 @@ const Menu = () => {
                      )}
 
 
+                    {/* Drinks menu */}
+                    {activeMenu === "drinks" && (
+                        <div className="menu-section">
+
+                             {/*  Starters */}
+                            <h2 className="menu-title">Coctails</h2>
+                            <div className="menu-divider"></div>
+
+                            <div className="menu-item">
+                                <span className="dish">Cosmo<span className="price">€10.95</span></span>
+                                <p className="itemsum">sweet and sour, the Cosmopolitan cocktail of vodka, cranberry, orange liqueur.</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Pornstar Martini<span className="price">€10.95</span></span>
+                                <p className="itemsum">It's made with passion fruit pureade, with vanilla voda and a shot of possoa, mixed together with some pineapple juice.</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">LongIsland<span className="price">€10.95</span></span>
+                                <p className="itemsum">It's made with equal parts of gin, vodka, tequila, rum, and triple sec, along with a splash of lime, cola, and plenty of ice</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Sex on the Beach<span className="price">€10.95</span></span>
+                                <p className="itemsum">Combine vodka with peach schnapps and cranberry juice to make a classic sex on the beach cocktail.</p>
+                            </div>
+
+                            <div className="menu-divider"></div>
+
+                            {/*  Spirits */}
+                            <h2 className="menu-title">Spirits</h2>
+                            <div className="menu-divider"></div>
+
+                            <div className="menu-item">
+                                <span className="dish">Smirnoff Vodka</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Hennessey</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Jager</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Power's 12</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Redbrest</span>
+                            </div>
+
+                            <div className="menu-divider"></div>
+
+                            {/*  Non-alcoholic beer */}
+                            <h2 className="menu-title">Non-Alcoholic Beer</h2>
+                            <div className="menu-divider"></div>
+
+                            <div className="menu-item">
+                                <span className="dish">Longneck bulmers 0</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">PT BTL bulmers 0</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Guiness 0</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Heinekin 0</span>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Erdinger 0</span>
+                            </div>
+                        </div>
+                     )}
+
+
         </div>
     );
 };
