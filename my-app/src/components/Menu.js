@@ -4,6 +4,12 @@ import "../App.css";
 const Menu = () => {
     //defualt view menu starts on the lunch page
     const [activeMenu, setActiveMenu] = useState("lunch");
+    //controls the image initally hidden
+    const [showImage, setShowImage] = useState(false);
+
+    const toggleImage = () => {
+        setShowImage(!showImage);
+      };
 
     return (
             <div className="menu">
@@ -226,7 +232,13 @@ const Menu = () => {
 
                             <div className="menu-item">
                                 <span className="dish">Pornstar Martini<span className="price">€10.95</span></span>
-                                <p className="itemsum">It's made with passion fruit pureade, with vanilla voda and a shot of possoa, mixed together with some pineapple juice.</p>
+                                <p className="itemsum">It's made with passion fruit pureade, with vanilla voda and a shot of possoa, mixed together with some pineapple juice.<span className="camera" onClick={toggleImage}>📷</span></p>
+                                
+                                {showImage && (
+                                    <div className="item-image">
+                                    <img src="/Images/pmartini.jpg" alt="Pornstar Martini" />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="menu-item">
