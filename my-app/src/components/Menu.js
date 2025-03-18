@@ -16,6 +16,8 @@ const Menu = () => {
                 <div className="menu-content">
                     {activeMenu === "lunch" && (
                         <div className="menu-section">
+
+                             {/*  Starters */}
                             <h2 className="menu-title">Starters</h2>
                             <div className="menu-divider"></div>
 
@@ -32,9 +34,9 @@ const Menu = () => {
                             </div>
 
                             <div className="menu-item">
-                                <span className="dish"> Chicken Caeser Salad  <span className="price">€9.95</span></span>
+                                <span className="dish"> Chicken Caeser Salad  <span className="price">€9.95(add Bacon +€1)</span></span>
                                 <p className="itemsum">Chicken Strips, Cos Lettuce, Garlic Croutons & Fresh Parmesan Shavings, bound in our 
-                                Caesar Dressing (add Bacon +€1).</p>
+                                Caesar Dressing.</p>
                             </div>
 
                             <div className="menu-item">
@@ -52,7 +54,41 @@ const Menu = () => {
 
                             <div className="menu-divider"></div>
 
-                           
+                            {/*  Mains */}
+                            <h2 className="menu-title">Main</h2>
+                            <div className="menu-divider"></div>
+
+                            <div className="menu-item">
+                                <span className="dish">Beef Burger<span className="price">€13.50(add Bacon + €1)</span></span>
+                                <p className="itemsum">Beef Burger topped with Melted Cheddar Cheese, Homemade Crispy
+                                Onion Rings, on a lightly toasted Brioche Bun served with Fries.</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Chicken Burger<span className="price">€13.50</span></span>
+                                <p className="itemsum">Buttermilk fried Chicken, Applewood Cheese, Lettuce, Red Onion & Tomato served with 
+                                Coleslaw & Fries .</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Chicken Goujons<span className="price">€13.50</span></span>
+                                <p className="itemsum">Served with Garlic Mayo & Fries.</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">Bacon & Chicken Carbonara<span className="price">€13.95</span></span>
+                                <p className="itemsum">Smoked Bacon & Chicken in a Creamy Garlic Sauce Served
+                                with Parmesan Shavings and Garlic Bread.</p>
+                            </div>
+
+                            <div className="menu-item">
+                                <span className="dish">8oz Sirloin Steak<span className="price">€22.95</span></span>
+                                <p className="itemsum">Cooked to your liking served with a choice of Creamy Peppercorn
+                                Sauce or Garlic Butter, accompanied with Sauté Onions & Mushrooms, & Fries.</p>
+                            </div>
+
+                            <div className="menu-divider"></div>
+
                         </div>
                      )}
              </div>
