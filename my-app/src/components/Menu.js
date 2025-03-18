@@ -13,6 +13,10 @@ const Menu = () => {
                     <button  className={`menubtn ${activeMenu === "drinks" ? "active" : ""}`}  onClick={() => setActiveMenu("drinks")}>Drinks</button>
                 </div>
 
+                <div className="allergies">
+                    Guests with allergies and intolerances should inform a member of the team before placing an order for food or beverages.
+                </div>
+
                 <div className="menu-content">
                     {activeMenu === "lunch" && (
                         <div className="menu-section">
