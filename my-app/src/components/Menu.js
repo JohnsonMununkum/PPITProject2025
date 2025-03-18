@@ -5,11 +5,12 @@ const Menu = () => {
     //defualt view menu starts on the lunch page
     const [activeMenu, setActiveMenu] = useState("lunch");
     //controls the image initally hidden
-    const [showImage, setShowImage] = useState(false);
+    const [showMartiniImage, setShowMartiniImage] = useState(false);
+    const [showSOBImage, setShowSOBImage] = useState(false);
 
-    const toggleImage = () => {
-        setShowImage(!showImage);
-      };
+    //having seprate toggle points so unrelated images dont show when the camera icon is clicked
+    const toggleMartiniImage = () => setShowMartiniImage(!showMartiniImage);
+    const toggleSOBImage = () => setShowSOBImage(!showSOBImage);
 
     return (
             <div className="menu">
@@ -232,9 +233,9 @@ const Menu = () => {
 
                             <div className="menu-item">
                                 <span className="dish">Pornstar Martini<span className="price">€10.95</span></span>
-                                <p className="itemsum">It's made with passion fruit pureade, with vanilla voda and a shot of possoa, mixed together with some pineapple juice.<span className="camera" onClick={toggleImage}>📷</span></p>
+                                <p className="itemsum">It's made with passion fruit pureade, with vanilla voda and a shot of possoa, mixed together with some pineapple juice.<span className="camera" onClick={toggleMartiniImage}>📷</span></p>
                                 
-                                {showImage && (
+                                {showMartiniImage && (
                                     <div className="item-image">
                                     <img src="/Images/pmartini.jpg" alt="Pornstar Martini" />
                                     </div>
@@ -248,7 +249,13 @@ const Menu = () => {
 
                             <div className="menu-item">
                                 <span className="dish">Sex on the Beach<span className="price">€10.95</span></span>
-                                <p className="itemsum">Combine vodka with peach schnapps and cranberry juice to make a classic sex on the beach cocktail.</p>
+                                <p className="itemsum">Combine vodka with peach schnapps and cranberry juice to make a classic sex on the beach cocktail.<span className="camera" onClick={toggleSOBImage}>📷</span></p>
+
+                                {showSOBImage && (
+                                    <div className="item-image">
+                                    <img src="/Images/sexonthebeach.jpg" alt="Sex on the Beach" />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="menu-divider"></div>
