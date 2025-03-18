@@ -310,20 +310,20 @@
   background-color: black;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
 }
 
-/* buttons on the menu page */
+/* class for the buttons on the menu page */
 .menu-options {
   display: flex;
   gap: 10px; 
   align-items: flex-start; 
   margin-top: 200px; 
-  padding-left: 200px;
+  padding-left: 50px;
 }
 
-/* styling for the menu buttons*/
+/* styling for the menu buttons */
 .menubtn {
   background-color: #1c1c1c; 
   color: white;
@@ -337,7 +337,16 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
 }
 
-/* lighter background on when mouse is on the button */
+/* lighten the background when mouse goes on the button */
 .menubtn:hover {
   background-color: #333; 
 }
+
+/* making the button gold to show user what menu their on */
+.menubtn.active {
+  background-color: gold; 
+  color: black;
+  box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+}
+
+
