@@ -14,7 +14,7 @@ const NavBar = () => {
               <Nav.Link href="/">Order to your Door</Nav.Link>
               <Nav.Link href="/">About</Nav.Link>
               <Nav.Link href="/AccountLogin">Account Login</Nav.Link>
-              <Nav.Link href="/">Reservations</Nav.Link>
+              <Nav.Link href="/Reservation">Reservations</Nav.Link>
             </Nav>
             </Container>
         </Navbar>

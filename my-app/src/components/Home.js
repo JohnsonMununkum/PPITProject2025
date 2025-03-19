@@ -11,7 +11,7 @@ const Home =() => {
             <p>In the heart of Ennis, One of Clare's biggest restaurant.</p>
 
             <div className="resDiv">
-            <h2><a href="/reservations" className="resLink">Reservation</a></h2>         
+            <h2><a href="/Reservation" className="resLink">Reservation</a></h2>         
             </div>
         </div>
     );

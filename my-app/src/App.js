@@ -5,6 +5,7 @@ import Home from './components/Home';
 import AccountLogin from './components/AccountLogin';
 import Register from './components/Register';
 import Menu from './components/Menu';
+import Reservation from './components/Reservation';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/AccountLogin" element={<AccountLogin/>} />
           <Route path="/Register" element={<Register/>} />
           <Route path="/Menu" element={<Menu/>} />
+          <Route path="/Reservation" element={<Reservation/>} />
         </Routes>
     </Router>
   );
