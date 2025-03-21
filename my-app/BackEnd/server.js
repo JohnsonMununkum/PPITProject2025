@@ -174,6 +174,35 @@ const authenticateUser = (req, res, next) => {
     });
 };
 
+//check the availablity of the booking
+async function checkAvailability(date, time, numberOfPeople) {
+    if (numOfPeople > 6) {
+        return { available: false, message: 'Maximum 6 people per reservation' };
+    }
+    
+    //format the date to midnight to compare dates properly
+    const formattedDate = new Date(date);
+    formattedDate.setHours(0, 0, 0, 0);
+    
+    //counting all existing reservations for this date and time
+    const existingReservations = await Reservation.countDocuments({
+        date: {
+            $gte: formattedDate,
+            $lt: new Date(formattedDate.getTime() + 24 * 60 * 60 * 1000)
+        },
+        startTime: time
+    });
+    
+    if (existingReservations >= 4) {
+        return { 
+            available: false, 
+            message: 'Sorry, no tables available at this time. Please try another time or date.'
+        };
+    }
+    
+    return { available: true };
+}
+
 
 
 //error handling to catch server errors
