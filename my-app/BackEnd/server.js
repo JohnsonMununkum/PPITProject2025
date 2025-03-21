@@ -5,6 +5,8 @@
 const express = require('express');
 const app = express();
 const port = 4000;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 //adding cors to the app
 const cors = require('cors');
@@ -96,38 +98,17 @@ app.post("/AccountLogin", async (req, res) => {
             return res.json({ exists: true, message: "Enter password" });
         }
      
-
-         // Check if the password matches the hashed password
-    const isPasswordCorrect = await bcrypt.compare(password, foundEmail.password);
-    console.log('Is Password Correct:', isPasswordCorrect);
-    if (!isPasswordCorrect) {
+    //Check if password is correct or not
+    if (foundEmail.password === password) {
+        console.log("Password is correct");
+        return res.json({ success: true });
+    	} 
+        else 
+        {
+        console.log("Incorrect password");
         return res.status(401).json({ success: false, message: "Incorrect password" });
     }
 
-    ///////////////////////////////////////////////////////////
-    // Create a JWT token if login is successful
-    const token = jwt.sign(
-        { id: foundEmail._id, email: foundEmail.email },
-        'your_jwt_secret', // You can store this in environment variables for security
-        { expiresIn: '1h' } // Token expires in 1 hour
-    );
-
-    // Send the token to the client
-    res.json({
-        success: true,
-        message: "Login successful",
-        token: token
-    });
-    //////////////////////////////////////////////////////////////////
-
-       /* //Check if password is correct or not
-        if (foundEmail.password === password) {
-            console.log("Password is correct");
-            return res.json({ success: true });
-        } else {
-            console.log("Incorrect password");
-            return res.status(401).json({ success: false, message: "Incorrect password" });
-        }*/
 });
 
 
@@ -147,7 +128,7 @@ app.post("/register", async (req, res) => {
       }
 
        // Hash the password before saving to the database
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds for hashing
+    const hashedPassword = await bcrypt.hash(password, 10); 
 
    const newCustomer = new userReg({fname, sname, email, password: hashedPassword, phoneNum, dob});
    await newCustomer.save();

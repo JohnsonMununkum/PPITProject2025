@@ -42,7 +42,7 @@ const AccountLogin = () => {
             navigate("/register");
         }
     };
-    
+
     const handleLogin = async () => {
         //validation for password
         if (!password) {
@@ -60,6 +60,8 @@ const AccountLogin = () => {
         
         if (data.success) {
             console.log("Login Successful");
+            //store the token in localStorage
+            localStorage.setItem('token', data.token);
             navigate("/");
         } else {
             setPasswordError("Incorrect password. Please try again.");
