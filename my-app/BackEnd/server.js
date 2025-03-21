@@ -169,7 +169,7 @@ const authenticateUser = (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid token.' });
         }
-        req.user = decoded; // Attach user info to the request
+        req.user = decoded; 
         next();
     });
 };
@@ -203,6 +203,38 @@ async function checkAvailability(date, time, numberOfPeople) {
     return { available: true };
 }
 
+//reservations 
+app.post('/reservations', authenticateUser, async (req, res) => {
+    const { date, time, numberOfPeople } = req.body;
+    const userId = req.user.id; 
+
+    // Now you can proceed with reservation logic
+    const availability = await checkAvailability(new Date(date), time, numberOfPeople);
+
+    if (availability.available) {
+        const newReservation = new Reservation({
+            date: new Date(date),
+            startTime: time,
+            endTime: calculateEndTime(time),
+            numOfPeople: numberOfPeople,
+            user_id: userId,
+        });
+        
+        await newReservation.save();
+        return res.json({ success: true, message: 'Reservation successful!' });
+    } else {
+        return res.status(400).json({ success: false, message: availability.message });
+    }
+});
+
+function calculateEndTime(startTime) {
+    const timeMap = {
+        '6:00 PM': '7:30 PM',
+        '7:00 PM': '8:30 PM',
+        '8:00 PM': '9:30 PM',
+    };
+    return timeMap[startTime] || '7:30 PM'; 
+}
 
 
 //error handling to catch server errors
