@@ -45,7 +45,7 @@ app.get('/', (req, res) =>{
  const userRegSchema = new mongoose.Schema({
     fname: String,// first name
     sname: String, //surname
-    email: { type: String, required: true, unique: true, lowercase: true, trim: true },// convert email to lowercase
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: String,
     phoneNum: String,
     dob: Date //date of birth
