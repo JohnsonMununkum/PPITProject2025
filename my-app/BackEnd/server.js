@@ -1,6 +1,7 @@
 //adding express to my app
 //express.js handles server-side logic 
 //allows the app to process api requests like CRUD (create, read, update & delete)
+//jwt and bcrypt hashinng password and verifying jwts
 const express = require('express');
 const app = express();
 const port = 4000;
@@ -53,6 +54,18 @@ app.get('/', (req, res) =>{
 
 const userReg = mongoose.model('userReg', userRegSchema);
 
+//schema for making a rservation
+const reservationSchema = new mongoose.Schema({
+    date: { type: Date, required: true },
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
+    numOfPeople: { type: Number, required: true, min: 1, max: 6 },
+    user_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'userReg' },
+    created_at: { type: Date, default: Date.now }
+});
+
+const Reservation = mongoose.model('Reservation', reservationSchema);
+
  //checking if email exists for login
  //then if email exists ask for password 
  //if email does not exist send them to the register page
@@ -82,15 +95,39 @@ app.post("/AccountLogin", async (req, res) => {
         if (!password) {
             return res.json({ exists: true, message: "Enter password" });
         }
+     
 
-        //Check if password is correct or not
+         // Check if the password matches the hashed password
+    const isPasswordCorrect = await bcrypt.compare(password, foundEmail.password);
+    console.log('Is Password Correct:', isPasswordCorrect);
+    if (!isPasswordCorrect) {
+        return res.status(401).json({ success: false, message: "Incorrect password" });
+    }
+
+    ///////////////////////////////////////////////////////////
+    // Create a JWT token if login is successful
+    const token = jwt.sign(
+        { id: foundEmail._id, email: foundEmail.email },
+        'your_jwt_secret', // You can store this in environment variables for security
+        { expiresIn: '1h' } // Token expires in 1 hour
+    );
+
+    // Send the token to the client
+    res.json({
+        success: true,
+        message: "Login successful",
+        token: token
+    });
+    //////////////////////////////////////////////////////////////////
+
+       /* //Check if password is correct or not
         if (foundEmail.password === password) {
             console.log("Password is correct");
             return res.json({ success: true });
         } else {
             console.log("Incorrect password");
             return res.status(401).json({ success: false, message: "Incorrect password" });
-        }
+        }*/
 });
 
 
@@ -109,11 +146,35 @@ app.post("/register", async (req, res) => {
           return res.status(400).json({ success: false, message: "Email already exists. Please log in." });
       }
 
-   const newCustomer = new userReg({fname, sname, email, password, phoneNum, dob});
+       // Hash the password before saving to the database
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds for hashing
+
+   const newCustomer = new userReg({fname, sname, email, password: hashedPassword, phoneNum, dob});
    await newCustomer.save();
 
    res.status(201).json({ message: 'Customer registered successfully' });
 });
+
+// Middleware to authenticate user using JWT
+const authenticateUser = (req, res, next) => {
+    // Get token from Authorization header
+    const token = req.header('Authorization')?.split(' ')[1]; // Format: "Bearer <token>"
+
+    if (!token) {
+        return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
+
+    // Verify the token
+    jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ message: 'Invalid token.' });
+        }
+        req.user = decoded; // Attach user info to the request
+        next();
+    });
+};
+
+
 
 //error handling to catch server errors
 app.use((err, req, res, next) => {
