@@ -101,6 +101,70 @@ const Reservation= () =>{
         } finally {
             setIsLoading(false);
         }
-    }};
+   
+    }
+
+    return (
+        <div className="page-container">
+            <div className="reservation-container">
+                <div className="content-wrap">
+                    <h1 className="reservation-title">Make a Reservation</h1>
+                    
+                    {message && (
+                        <div className={Error ? "error-message" : "success-message"}>
+                            {message}
+                        </div>
+                    )}
+                    
+                    <form onSubmit={handleReservation}>
+                        <div className="input-group">
+                            <label>Date:</label>
+                            <input
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                className="input-field"
+                                min={new Date().toISOString().split('T')[0]}
+                            />
+
+                            <label>Time:</label>
+                            <select
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                className="input-field"
+                            >
+                                <option value="">Select a time</option>
+                                {timeSlots.map((slot) => (
+                                    <option key={slot} value={slot}>
+                                        {slot}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <label>Number of People (Max 6):</label>
+                            <input
+                                type="number"
+                                value={numberOfPeople}
+                                onChange={(e) => setNumberOfPeople(Math.min(6, Math.max(1, parseInt(e.target.value))))}
+                                className="input-field"
+                                min="1"
+                                max="6"
+                            />
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            className="btn" 
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Processing...' : 'Book Table'}
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
+};
 
 export default Reservation;
