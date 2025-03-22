@@ -205,7 +205,6 @@ app.post('/reservations', authenticateUser, async (req, res) => {
     const { date, time, numberOfPeople } = req.body;
     const userId = req.user.id; 
 
-    // Now you can proceed with reservation logic
     const availability = await checkAvailability(new Date(date), time, numberOfPeople);
 
     if (availability.available) {
