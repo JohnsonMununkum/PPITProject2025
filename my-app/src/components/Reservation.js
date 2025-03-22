@@ -91,13 +91,13 @@ const Reservation= () =>{
                 setTime('');
                 setNumberOfPeople(1);
             } else {
-                setMessage('Failed to make reservation');
+                setMessage(data.message || 'Failed to make reservation');
                 setError(true);
             }
-        } catch (error) {
+        } catch (Error) {
             setMessage('Something went wrong. Please try again.');
             setError(true);
-            console.error('Reservation error:', error);
+            console.error('Reservation error:', Error);
         } finally {
             setIsLoading(false);
         }

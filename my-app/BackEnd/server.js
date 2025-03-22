@@ -100,8 +100,18 @@ app.post("/AccountLogin", async (req, res) => {
      
     //Check if password is correct or not
     if (foundEmail.password === password) {
-        console.log("Password is correct");
-        return res.json({ success: true });
+        //console.log("Password is correct");
+        //return res.json({ success: true });
+         // Generate a token
+        const token = jwt.sign({ email: foundEmail.email, id: foundEmail._id }, 'your_secret_key', { expiresIn: '1h' });
+
+        // Send success response WITH the token
+      return res.json({ 
+        success: true, 
+        token: token,
+        userId: foundEmail._id,
+        name: foundEmail.fname
+      });
     	} 
         else 
         {
@@ -139,14 +149,14 @@ app.post("/register", async (req, res) => {
 // Middleware to authenticate user using JWT
 const authenticateUser = (req, res, next) => {
     // Get token from Authorization header
-    const token = req.header('Authorization')?.split(' ')[1]; // Format: "Bearer <token>"
+    const token = req.header('Authorization')?.split(' ')[1]; 
 
     if (!token) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
 
     // Verify the token
-    jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
+    jwt.verify(token, 'your_secret_key', (err, decoded) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid token.' });
         }
@@ -157,22 +167,28 @@ const authenticateUser = (req, res, next) => {
 
 //check the availablity of the booking
 async function checkAvailability(date, time, numberOfPeople) {
-    if (numOfPeople > 6) {
+    if (numberOfPeople > 6) {
         return { available: false, message: 'Maximum 6 people per reservation' };
     }
     
-    //format the date to midnight to compare dates properly
-    const formattedDate = new Date(date);
-    formattedDate.setHours(0, 0, 0, 0);
-    
-    //counting all existing reservations for this date and time
+     //creating reservation start and end time for a particuar day
+     const startDate = new Date(date);
+     startDate.setHours(0, 0, 0, 0);
+     
+     const endDate = new Date(startDate);
+     endDate.setDate(endDate.getDate() + 1);
+     
+     console.log(`Checking availability for ${startDate.toISOString()} to ${endDate.toISOString()} at ${time}`);
+     
     const existingReservations = await Reservation.countDocuments({
         date: {
-            $gte: formattedDate,
-            $lt: new Date(formattedDate.getTime() + 24 * 60 * 60 * 1000)
+            $gte: startDate,
+            $lt: endDate
         },
         startTime: time
     });
+    
+    console.log(`Found ${existingReservations} existing reservations`);
     
     if (existingReservations >= 4) {
         return { 
