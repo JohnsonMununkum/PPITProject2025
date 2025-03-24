@@ -2,11 +2,14 @@
 //express.js handles server-side logic 
 //allows the app to process api requests like CRUD (create, read, update & delete)
 //jwt and bcrypt hashinng password and verifying jwts
+//adding twilio for sms notifications & nodemlaier for email notifications
 const express = require('express');
 const app = express();
 const port = 4000;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const twilio = require('twilio');
+const nodemailer = require('nodemailer');
 
 //adding cors to the app
 const cors = require('cors');
@@ -18,6 +21,18 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
+  });
+
+    //twilio 
+    const Client = twilio('ACe79605932a1fa775f53acf891e9112d3', '6f1eed6db0320282b45ecace4245e232 ');
+
+    //nodemailer 
+    const transporter = nodemailer.createTransport({
+    service: 'Gmail', 
+    auth: {
+      user: 'jmununkum@gmail.com',
+      pass: 'Alimoh12_' 
+    }
   });
 
 //body-parser middleware is used to parse incoming requests so that the server can access data sent by the client 
