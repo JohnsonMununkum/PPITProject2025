@@ -167,6 +167,7 @@ const authenticateUser = (req, res, next) => {
 
 //check the availablity of the booking
 async function checkAvailability(date, time, numberOfPeople) {
+    //only 6 ppl allowed per bookig
     if (numberOfPeople > 6) {
         return { available: false, message: 'Maximum 6 people per reservation' };
     }
@@ -180,6 +181,7 @@ async function checkAvailability(date, time, numberOfPeople) {
      
      console.log(`Checking availability for ${startDate.toISOString()} to ${endDate.toISOString()} at ${time}`);
      
+     //check how many reservations are already there 
     const existingReservations = await Reservation.countDocuments({
         date: {
             $gte: startDate,
@@ -188,8 +190,11 @@ async function checkAvailability(date, time, numberOfPeople) {
         startTime: time
     });
     
-    console.log(`Found ${existingReservations} existing reservations`);
+    //deugging to check if it got the correct amount of reservations in the database
+    //console.log(`Found ${existingReservations} existing reservations`);
     
+    //if there are more than 4 reservations for the same time and same date user cannot make an additional booking
+    //they will have to select a different time or date
     if (existingReservations >= 4) {
         return { 
             available: false, 
@@ -201,6 +206,10 @@ async function checkAvailability(date, time, numberOfPeople) {
 }
 
 //reservations 
+//first we check to see if the booking the want to make is available
+//we use the checkAvailability function for that
+//if it is available we store the date , start-time, end-time, number of people for the rservation & the user id
+//this is the saved up onto our mongo db database for the reservations
 app.post('/reservations', authenticateUser, async (req, res) => {
     const { date, time, numberOfPeople } = req.body;
     const userId = req.user.id; 
@@ -223,6 +232,8 @@ app.post('/reservations', authenticateUser, async (req, res) => {
     }
 });
 
+//calculate end time is for the end time 
+//each booking is an hour & 30mins from their start time
 function calculateEndTime(startTime) {
     const timeMap = {
         '6:00 PM': '7:30 PM',
