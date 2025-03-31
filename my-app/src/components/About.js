@@ -16,7 +16,7 @@ const Home =() => {
                     Come and experience our warm, welcoming atmosphere and let us treat you to a truly memorable dining experience!
                 </p>
 
-               
+                
             </div>
 
             <Footer/>
