@@ -27,15 +27,6 @@ app.use(function(req, res, next) {
   const MAXPPL_PERBOOKING = 6;
   const BOOKING_SAME_TIMEANDDATE = 4;
 
-    //nodemailer 
-    const transporter = nodemailer.createTransport({
-    service: 'Gmail', 
-    auth: {
-      user: 'jmununkum@gmail.com',
-      pass: 'Alimoh12_' 
-    }
-  });
-
 //body-parser middleware is used to parse incoming requests so that the server can access data sent by the client 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));

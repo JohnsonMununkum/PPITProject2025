@@ -25,10 +25,9 @@ const Footer = () => {
           <div className="footer-section">
             <h3>Useful Links</h3>
             <ul>
-              <li><a href="">Menu</a></li>
-              <li><a href="">Careers</a></li>
-              <li><a href="">Reservations</a></li>
-              <li><a href="">About</a></li>
+              <li><a href="/Menu">Menu</a></li>
+              <li><a href="/Reservation">Reservations</a></li>
+              <li><a href="/About">About</a></li>
             </ul>
           </div>
   
