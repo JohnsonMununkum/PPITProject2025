@@ -6,6 +6,7 @@ import AccountLogin from './components/AccountLogin';
 import Register from './components/Register';
 import Menu from './components/Menu';
 import Reservation from './components/Reservation';
+import About from './components/About';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Register" element={<Register/>} />
           <Route path="/Menu" element={<Menu/>} />
           <Route path="/Reservation" element={<Reservation/>} />
+          <Route path="/About" element={<About/>} />
         </Routes>
     </Router>
   );
