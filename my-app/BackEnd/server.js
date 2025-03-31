@@ -23,9 +23,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-    //twilio 
-    const Client = twilio('ACe79605932a1fa775f53acf891e9112d3', '6f1eed6db0320282b45ecace4245e232 ');
-
     //nodemailer 
     const transporter = nodemailer.createTransport({
     service: 'Gmail', 
@@ -241,7 +238,22 @@ app.post('/reservations', authenticateUser, async (req, res) => {
         });
         
         await newReservation.save();
-        return res.json({ success: true, message: 'Reservation successful!' });
+
+        //find users email and phone number
+        const user = await userReg.findById(userId);
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'User details not found' });
+        }
+         // Send Email asynchronously
+         Promise.all([
+            sendReservationEmail(user.email, user.fname, date, time, numberOfPeople)
+        ]).then(() => {
+            return res.json({ success: true, message: 'Reservation successful!' });
+        }).catch((err) => {
+            console.error('Notification error:', err);
+            return res.status(500).json({ success: false, message: 'Reservation successful, but notifications failed.' });
+        });
+        //return res.json({ success: true, message: 'Reservation successful!' });
     } else {
         return res.status(400).json({ success: false, message: availability.message });
     }
@@ -256,6 +268,29 @@ function calculateEndTime(startTime) {
         '8:00 PM': '9:30 PM',
     };
     return timeMap[startTime] || '7:30 PM'; 
+}
+
+
+// Email notification function
+function sendReservationEmail(email, fname, date, time, numberOfPeople) {
+    const mailOptions = {
+        from: '"Your Restaurant Name" <jmununkum@gmail.com>',
+        to: email,
+        subject: 'Reservation Confirmed',
+        html: `
+        <h2>Reservation Confirmed!</h2>
+        <p>Hi ${fname},</p>
+        <p>Your reservation is confirmed:</p>
+        <ul>
+            <li><strong>Date:</strong> ${new Date(date).toDateString()}</li>
+            <li><strong>Time:</strong> ${time}</li>
+            <li><strong>Guests:</strong> ${numberOfPeople}</li>
+        </ul>
+        <p>Looking forward to welcoming you!</p>
+        `
+    };
+
+    return transporter.sendMail(mailOptions);
 }
 
 
