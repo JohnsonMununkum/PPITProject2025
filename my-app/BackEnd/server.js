@@ -23,6 +23,10 @@ app.use(function(req, res, next) {
     next();
   });
 
+  //constant variaable for maxnumofpeople per booking & maxbookingspertime
+  const MAXPPL_PERBOOKING = 6;
+  const BOOKING_SAME_TIMEANDDATE = 4;
+
     //nodemailer 
     const transporter = nodemailer.createTransport({
     service: 'Gmail', 
@@ -180,7 +184,7 @@ const authenticateUser = (req, res, next) => {
 //check the availablity of the booking
 async function checkAvailability(date, time, numberOfPeople) {
     //only 6 ppl allowed per bookig
-    if (numberOfPeople > 6) {
+    if (numberOfPeople > MAXPPL_PERBOOKING) {
         return { available: false, message: 'Maximum 6 people per reservation' };
     }
     
@@ -207,7 +211,7 @@ async function checkAvailability(date, time, numberOfPeople) {
     
     //if there are more than 4 reservations for the same time and same date user cannot make an additional booking
     //they will have to select a different time or date
-    if (existingReservations >= 4) {
+    if (existingReservations >= BOOKING_SAME_TIMEANDDATE) {
         return { 
             available: false, 
             message: 'Sorry, no tables available at this time. Please try another time or date.'
