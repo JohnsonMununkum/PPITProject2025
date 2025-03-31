@@ -2,6 +2,7 @@
 import React from "react"; 
 import "../App.css";
 import Footer from "./Footer";
+import Map from "./Map";
 
 const Home =() => {
     //shows whatever is in the return block on the home page
@@ -16,7 +17,7 @@ const Home =() => {
                     Come and experience our warm, welcoming atmosphere and let us treat you to a truly memorable dining experience!
                 </p>
 
-                
+                <Map/>
             </div>
 
             <Footer/>

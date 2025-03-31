@@ -15,7 +15,7 @@ const Map =() => {
     const LOCATION = [52.8450, -8.9850];
     return (
         <MapContainer
-          center={storeLocation}
+          center={LOCATION}
           zoom={13}
           scrollWheelZoom={false}
           style={{ width: "400px", height: "300px" }}
