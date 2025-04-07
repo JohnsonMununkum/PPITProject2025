@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Menu from './components/Menu';
 import Reservation from './components/Reservation';
 import About from './components/About';
+import MyReservations from './components/MyReservations';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Menu" element={<Menu/>} />
           <Route path="/Reservation" element={<Reservation/>} />
           <Route path="/About" element={<About/>} />
+          <Route path="/my-reservations" element={<MyReservations />} />
         </Routes>
     </Router>
   );

@@ -8,8 +8,7 @@ const app = express();
 const port = 4000;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const twilio = require('twilio');
-const nodemailer = require('nodemailer');
+
 
 //adding cors to the app
 const cors = require('cors');

@@ -11,7 +11,7 @@ const NavBar = () => {
             <img src="/Images/logo.jpeg" alt="logo" width="100" height="100" />            </Navbar.Brand>
             <Nav className="nav">
               <Nav.Link href="/Menu">Menu</Nav.Link>
-              <Nav.Link href="/">Order to your Door</Nav.Link>
+              <Nav.Link href="/my-reservations">View Reservations</Nav.Link>
               <Nav.Link href="/About">About</Nav.Link>
               <Nav.Link href="/AccountLogin">Account Login</Nav.Link>
               <Nav.Link href="/Reservation">Reservations</Nav.Link>
