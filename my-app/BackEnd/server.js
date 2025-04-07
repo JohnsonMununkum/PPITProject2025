@@ -239,16 +239,8 @@ app.post('/reservations', authenticateUser, async (req, res) => {
         if (!user) {
             return res.status(400).json({ success: false, message: 'User details not found' });
         }
-         // Send Email asynchronously
-         Promise.all([
-            sendReservationEmail(user.email, user.fname, date, time, numberOfPeople)
-        ]).then(() => {
-            return res.json({ success: true, message: 'Reservation successful!' });
-        }).catch((err) => {
-            console.error('Notification error:', err);
-            return res.status(500).json({ success: false, message: 'Reservation successful, but notifications failed.' });
-        });
-        //return res.json({ success: true, message: 'Reservation successful!' });
+       
+        return res.json({ success: true, message: 'Reservation successful!' });
     } else {
         return res.status(400).json({ success: false, message: availability.message });
     }
@@ -264,30 +256,6 @@ function calculateEndTime(startTime) {
     };
     return timeMap[startTime] || '7:30 PM'; 
 }
-
-
-// Email notification function
-function sendReservationEmail(email, fname, date, time, numberOfPeople) {
-    const mailOptions = {
-        from: '"Your Restaurant Name" <jmununkum@gmail.com>',
-        to: email,
-        subject: 'Reservation Confirmed',
-        html: `
-        <h2>Reservation Confirmed!</h2>
-        <p>Hi ${fname},</p>
-        <p>Your reservation is confirmed:</p>
-        <ul>
-            <li><strong>Date:</strong> ${new Date(date).toDateString()}</li>
-            <li><strong>Time:</strong> ${time}</li>
-            <li><strong>Guests:</strong> ${numberOfPeople}</li>
-        </ul>
-        <p>Looking forward to welcoming you!</p>
-        `
-    };
-
-    return transporter.sendMail(mailOptions);
-}
-
 
 //error handling to catch server errors
 app.use((err, req, res, next) => {
