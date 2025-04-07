@@ -275,6 +275,59 @@ app.get('/my-reservations', authenticateUser, async (req, res) => {
     }
 });
 
+//delete method for deleting a reservation
+app.delete('/reservations/:id', authenticateUser, async (req, res) => {
+    try {
+        //find the reservation by id & delete 
+        const result = await Reservation.findOneAndDelete({
+            _id: req.params.id,
+            user_id: req.user.id
+        });
+
+        //if reservation not found it wont be deleted 
+        if (!result) {
+            return res.status(404).json({ success: false, message: 'Reservation not found' });
+        }
+
+        //vice versa if it is found then it will be deleted 
+        res.json({ success: true, message: 'Reservation deleted' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+//update method for updating a reservation
+app.put('/reservations/:id', authenticateUser, async (req, res) => {
+    //declare variables
+    const { date, time, numberOfPeople } = req.body;
+
+    //try and find the reservation by id 
+    //if found update it 
+    try {
+        const updated = await Reservation.findOneAndUpdate(
+            { _id: req.params.id, user_id: req.user.id },
+            {
+                date: new Date(date),
+                startTime: time,
+                endTime: calculateEndTime(time),
+                numOfPeople: numberOfPeople
+            },
+            { new: true }
+        );
+
+        //if it is not found it cant be updated 
+        if (!updated) {
+            return res.status(404).json({ success: false, message: 'Reservation not found' });
+        }
+
+        //message that shows it has been updated succcessfuly
+        res.json({ success: true, message: 'Reservation updated', reservation: updated });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+
 
 //error handling to catch server errors
 app.use((err, req, res, next) => {
