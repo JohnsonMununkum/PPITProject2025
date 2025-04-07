@@ -256,6 +256,26 @@ function calculateEndTime(startTime) {
     return timeMap[startTime] || '7:30 PM'; 
 }
 
+//getting a user's reservations 
+app.get('/my-reservations', authenticateUser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        console.log("Fetching reservations for user ID:", userId);
+
+        //find the users reservations & sort them by date & time
+        const reservations = await Reservation.find({ user_id: userId }).sort({ date: 1, startTime: 1 });
+
+        //return the reservations
+        res.status(200).json({ success: true, reservations });
+        //if unable to get the reservations
+    } catch (error) {
+        console.error("Error fetching reservations:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch reservations" });
+    }
+});
+
+
 //error handling to catch server errors
 app.use((err, req, res, next) => {
     console.error(err.stack);
